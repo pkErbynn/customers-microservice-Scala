@@ -1,27 +1,28 @@
 package io.turntabl.Controller
 
-import java.util.concurrent.Flow.Publisher
-
-import io.swagger.annotations
-import io.swagger.annotations.{Api, ApiOperation}
+import io.swagger.annotations.Api
 import io.turntabl.service.CustomerService
 import org.springframework.web.bind.annotation.DeleteMapping
-//import io.turntabl.service.{Customer, CustomerService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, PutMapping, RequestBody, RestController}
 import io.swagger.annotations.ApiOperation
+import org.slf4j.Logger
 
 
 @Api
 @RestController
 class CustomerController {
 
+  val logger: Logger = org.slf4j.LoggerFactory.getLogger(classOf[CustomerController])
+
+
   @Autowired
   private val dao: CustomerService = new CustomerService
 
   @ApiOperation("Get all customers in record")
   @GetMapping(Array("/customer"))
-  def getAllCustomers: List[Customer] = {print("get all customers....")
+  def getAllCustomers: List[Customer] = {
+    logger.info("get all customers....")
     dao.getAllCustomers
   }
 
