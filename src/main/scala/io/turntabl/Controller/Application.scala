@@ -2,7 +2,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class Application {}
+class Application
 
 object Application {
   def main(args: Array[String]): Unit = {

@@ -20,23 +20,25 @@ class CustomerController {
   private val dao: CustomerService = new CustomerService
 
   @ApiOperation("Get all customers in record")
-  @GetMapping("/customer")
-  def getAllCustomers: List[Customer] = dao.getAllCustomers
+  @GetMapping(Array("/customer"))
+  def getAllCustomers: List[Customer] = {print("get all customers....")
+    dao.getAllCustomers
+  }
 
   @ApiOperation("get customers by name")
-  @GetMapping("/customer/search")
+  @GetMapping(Array("/customer/search"))
   def getCustomerByName(name: String): List[Customer] = dao.getCustomerByName(name)
 
   @ApiOperation("get customers by id")
-  @GetMapping("/customer/{id}")
+  @GetMapping(path = Array("/customer/{id}"))
   def getCustomerById(@PathVariable id: Long): Option[Customer] = dao.getCustomerById(id)
 
   @ApiOperation("add new customer")
-  @PostMapping("/customer/add")
+  @PostMapping(Array("/customer/add"))
   def addNewCustomer(@RequestBody customer: Customer): Unit = dao.addNewCustomer(customer)
 
   @ApiOperation("update record of an existing customer")
-  @PutMapping("/customer/{id}")
+  @PutMapping(Array("/customer/{id}"))
   def updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): Unit = {
     dao.getCustomerById(id) match {
       case Some(customerToUpdate) => {customerToUpdate(customer.name, customer.address, customer.telephoneNumber, customer.email )
@@ -47,11 +49,11 @@ class CustomerController {
   }
 
   @ApiOperation("delete record of an existing customer")
-  @DeleteMapping("/customer/{id}")
+  @DeleteMapping(Array("/customer/{id}"))
   def deleteCustomer(@PathVariable id: Long) : Unit = dao.deleteCustomer(id)
 
   @ApiOperation("retrieve record of an deleted customer")
-  @GetMapping("/customer/retrieve/{id}")
+  @GetMapping(Array("/customer/retrieve/{id}"))
   def retrieveDeletedCustomer(@PathVariable id: Long): Option[Customer] = dao.retrieveDeletedCustomer(id)
 
 }
