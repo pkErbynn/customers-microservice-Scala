@@ -37,15 +37,13 @@ class CustomerController {
 
   @ApiOperation("update record of an existing customer")
   @PutMapping("/customer/{id}")
-  def updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): Option[Customer] = {
-    val customerById: Option[Customer] = dao.getCustomerById(id)
-    customerById match {
-      case Some(customer) => {customerById(customer.name, customer.address, customer.telephoneNumber, customer.email )
-                              dao.updateCustomer(customerById)
+  def updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): Unit = {
+    dao.getCustomerById(id) match {
+      case Some(customerToUpdate) => {customerToUpdate(customer.name, customer.address, customer.telephoneNumber, customer.email )
+                                    dao.updateCustomer(customerToUpdate)
       }
-      case None => print("unknown customer Id")
+      case None => println("unknown customer Id")
     }
-//    customerToUpdate(customer.name, customer.address, customer.telephoneNumber, customer.email )
   }
 
   @ApiOperation("delete record of an existing customer")
@@ -54,6 +52,6 @@ class CustomerController {
 
   @ApiOperation("retrieve record of an deleted customer")
   @GetMapping("/customer/retrieve/{id}")
-  def retrieveCustomer(@PathVariable ): Customer
+  def retrieveDeletedCustomer(@PathVariable id: Long): Option[Customer] = dao.retrieveDeletedCustomer(id)
 
 }
