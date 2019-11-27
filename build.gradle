@@ -1,6 +1,8 @@
 plugins {
     id 'scala'
     id 'application'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
 group 'io.turntabl'
@@ -14,7 +16,23 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compile("io.springfox:springfox-swagger2:2.9.2")
+    compile("io.springfox:springfox-swagger-ui:2.9.2")
+    compile("redis.clients:jedis:3.0.0")
+    compile group: 'org.scalikejdbc', name: 'scalikejdbc-syntax-support-macro_2.10', version: '2.1.0'
+
     implementation 'org.scala-lang:scala-library:2.11.12'
     testImplementation 'org.scalatest:scalatest_2.11:3.0.0'
     testImplementation 'junit:junit:4.12'
+}
+
+test {
+    useJUnitPlatform()
 }
