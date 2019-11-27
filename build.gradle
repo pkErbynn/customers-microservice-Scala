@@ -27,6 +27,8 @@ dependencies {
     compile("io.springfox:springfox-swagger-ui:2.9.2")
     compile("redis.clients:jedis:3.0.0")
     compile group: 'org.scalikejdbc', name: 'scalikejdbc-syntax-support-macro_2.10', version: '2.1.0'
+    compile("io.springfox:springfox-swagger2:2.9.2")
+    compile("io.springfox:springfox-swagger-ui:2.9.2")
 
     implementation 'org.scala-lang:scala-library:2.11.12'
     testImplementation 'org.scalatest:scalatest_2.11:3.0.0'

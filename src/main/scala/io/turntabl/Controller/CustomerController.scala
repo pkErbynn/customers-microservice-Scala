@@ -3,7 +3,7 @@ package io.turntabl.Controller
 import java.util.concurrent.Flow.Publisher
 
 import io.swagger.annotations
-import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.{Api, ApiOperation}
 import io.turntabl.service.CustomerService
 import org.springframework.web.bind.annotation.DeleteMapping
 //import io.turntabl.service.{Customer, CustomerService}
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMa
 import io.swagger.annotations.ApiOperation
 
 
-@annotations.Api
+@Api
 @RestController
 class CustomerController {
 
