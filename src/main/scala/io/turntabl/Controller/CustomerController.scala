@@ -31,6 +31,10 @@ class CustomerController( @Autowired val dao: CustomerService = new CustomerServ
   @ApiOperation("get customers by id")
   @GetMapping(path = Array("/customer/{id}"))
   def getCustomerById(@PathVariable id: Long): Option[Customer] = dao.getCustomerById(id)
+//    id match {
+//      case Some(Customer) => dao.getCustomerById(id)
+//      case None => print("invalid id")
+//    }
 
   @ApiOperation("add new customer")
   @PostMapping(path = Array("/customer/add"))
