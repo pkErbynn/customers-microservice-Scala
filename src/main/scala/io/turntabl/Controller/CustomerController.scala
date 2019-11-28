@@ -5,20 +5,19 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, PutMapping, RequestBody, RestController}
 import io.swagger.annotations.ApiOperation
+import javax.sql.DataSource
 import org.slf4j.Logger
 
 
 @Api
 @RestController
-class CustomerController {
+class CustomerController( @Autowired val dao: CustomerService = new CustomerService,
+                          @Autowired val dataSource: DataSource) {
 
   val logger: Logger = org.slf4j.LoggerFactory.getLogger(classOf[CustomerController])
 
-  @Autowired
-  private val dao: CustomerService = new CustomerService
-
   @ApiOperation("Get all customers in record")
-  @GetMapping(Array("/customer"))
+  @GetMapping(path = Array("/customer"))
   def getAllCustomers: List[Customer] = {
     logger.info("get all customers....")
     println("list all customers...")
@@ -26,7 +25,7 @@ class CustomerController {
   }
 
   @ApiOperation("get customers by name")
-  @GetMapping(Array("/customer/search"))
+  @GetMapping(path = Array("/customer/search"))
   def getCustomerByName(name: String): List[Customer] = dao.getCustomerByName(name)
 
   @ApiOperation("get customers by id")
@@ -34,11 +33,11 @@ class CustomerController {
   def getCustomerById(@PathVariable id: Long): Option[Customer] = dao.getCustomerById(id)
 
   @ApiOperation("add new customer")
-  @PostMapping(Array("/customer/add"))
+  @PostMapping(path = Array("/customer/add"))
   def addNewCustomer(@RequestBody customer: Customer): Unit = dao.addNewCustomer(customer)
 
   @ApiOperation("update record of an existing customer")
-  @PutMapping(Array("/customer/{id}"))
+  @PutMapping(path = Array("/customer/{id}"))
   def updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): Unit = {
     dao.getCustomerById(id) match {
       case Some(customerToUpdate) => {customerToUpdate(customer.name, customer.address, customer.telephoneNumber, customer.email )
@@ -49,11 +48,11 @@ class CustomerController {
   }
 
   @ApiOperation("delete record of an existing customer")
-  @DeleteMapping(Array("/customer/{id}"))
+  @DeleteMapping(path = Array("/customer/{id}"))
   def deleteCustomer(@PathVariable id: Long) : Unit = dao.deleteCustomer(id)
 
   @ApiOperation("retrieve record of an deleted customer")
-  @GetMapping(Array("/customer/retrieve/{id}"))
+  @GetMapping(path = Array("/customer/retrieve/{id}"))
   def retrieveDeletedCustomer(@PathVariable id: Long): Option[Customer] = dao.retrieveDeletedCustomer(id)
 
 }
