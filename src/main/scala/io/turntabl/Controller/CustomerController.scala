@@ -1,7 +1,6 @@
 package io.turntabl.Controller
 
 import io.swagger.annotations.Api
-import io.turntabl.service.CustomerService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, PutMapping, RequestBody, RestController}
@@ -15,7 +14,6 @@ class CustomerController {
 
   val logger: Logger = org.slf4j.LoggerFactory.getLogger(classOf[CustomerController])
 
-
   @Autowired
   private val dao: CustomerService = new CustomerService
 
@@ -23,6 +21,7 @@ class CustomerController {
   @GetMapping(Array("/customer"))
   def getAllCustomers: List[Customer] = {
     logger.info("get all customers....")
+    println("list all customers...")
     dao.getAllCustomers
   }
 

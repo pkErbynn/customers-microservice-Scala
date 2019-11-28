@@ -1,6 +1,5 @@
-package io.turntabl.service
+package io.turntabl.Controller
 
-import io.turntabl.Controller.Customer
 import scalikejdbc._
 
 //case class Customer(id: Long, name: String, address: String, telephoneNumber: String, val email: String)
